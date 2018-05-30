@@ -1,0 +1,3 @@
+[submodule "caryocar"]
+	path = caryocar
+	url = https://github.com/pedrosiracusa/caryocar.git
