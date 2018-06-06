@@ -1,0 +1,169 @@
+<!-- START SIGMA IMPORTS -->
+<script src="../../lib/sigmajs/src/sigma.core.js"></script>
+<script src="../../lib/sigmajs/src/conrad.js"></script>
+<script src="../../lib/sigmajs/src/utils/sigma.utils.js"></script>
+<script src="../../lib/sigmajs/src/utils/sigma.polyfills.js"></script>
+<script src="../../lib/sigmajs/src/sigma.settings.js"></script>
+<script src="../../lib/sigmajs/src/classes/sigma.classes.dispatcher.js"></script>
+<script src="../../lib/sigmajs/src/classes/sigma.classes.configurable.js"></script>
+<script src="../../lib/sigmajs/src/classes/sigma.classes.graph.js"></script>
+<script src="../../lib/sigmajs/src/classes/sigma.classes.camera.js"></script>
+<script src="../../lib/sigmajs/src/classes/sigma.classes.quad.js"></script>
+<script src="../../lib/sigmajs/src/classes/sigma.classes.edgequad.js"></script>
+<script src="../../lib/sigmajs/src/captors/sigma.captors.mouse.js"></script>
+<script src="../../lib/sigmajs/src/captors/sigma.captors.touch.js"></script>
+<script src="../../lib/sigmajs/src/renderers/sigma.renderers.canvas.js"></script>
+<script src="../../lib/sigmajs/src/renderers/sigma.renderers.webgl.js"></script>
+<script src="../../lib/sigmajs/src/renderers/sigma.renderers.svg.js"></script>
+<script src="../../lib/sigmajs/src/renderers/sigma.renderers.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="../../lib/sigmajs/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="../../lib/sigmajs/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+<script src="../../lib/sigmajs/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/svg/sigma.svg.utils.js"></script>
+<script src="../../lib/sigmajs/src/renderers/svg/sigma.svg.nodes.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/svg/sigma.svg.edges.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/svg/sigma.svg.edges.curve.js"></script>
+<script src="../../lib/sigmajs/src/renderers/svg/sigma.svg.labels.def.js"></script>
+<script src="../../lib/sigmajs/src/renderers/svg/sigma.svg.hovers.def.js"></script>
+<script src="../../lib/sigmajs/src/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="../../lib/sigmajs/src/middlewares/sigma.middlewares.copy.js"></script>
+<script src="../../lib/sigmajs/src/misc/sigma.misc.animation.js"></script>
+<script src="../../lib/sigmajs/src/misc/sigma.misc.bindEvents.js"></script>
+<script src="../../lib/sigmajs/src/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="../../lib/sigmajs/src/misc/sigma.misc.drawHovers.js"></script>
+<!-- END SIGMA IMPORTS -->
+<script src="../../lib/sigmajs/plugins/sigma.parsers.gexf/gexf-parser.js"></script>
+<script src="../../lib/sigmajs/plugins/sigma.parsers.gexf/sigma.parsers.gexf.js"></script>
+
+<body>
+<div id="container">
+  <style>
+    #graph-container {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+    }
+  </style>
+  <div id="graph-container"></div>
+</div>
+
+<div style="font-family:monospace;">
+	<h3>UB Herbarium SCN</h3>
+	<p>Taxonomic resolution: FAMILY</p>
+    <p>Projected SCN onto the species set</p>
+	<p>Filtered out edges with count &lt 20</p>
+	<p>Filtered out isolated nodes</p>
+    <p>Filtered out communities with score &lt 600</p>
+</div>
+</body>
+
+
+<script>
+/**
+ * Here is just a basic example on how to properly display a graph
+ * exported from Gephi in the GEXF format.
+ *
+ * The plugin sigma.parsers.gexf can load and parse the GEXF graph file,
+ * and instantiate sigma when the graph is received.
+ *
+ * The object given as the second parameter is the base of the instance
+ * configuration object. The plugin will just add the "graph" key to it
+ * before the instanciation.
+ */
+
+sigma.classes.graph.addMethod('neighbors', function(nodeId){
+	var k, neighbors={}, index= this.allNeighborsIndex[nodeId] || [];
+	for (k in index)
+		neighbors[k] = this.nodesIndex[k];
+	return neighbors;
+});
+
+
+sigma.parsers.gexf('g.gexf', {
+	  container: 'graph-container',
+	  renderer:{
+	  	container: document.getElementById('graph-container'),
+		type: 'canvas'
+	  }
+	},
+	function(s){
+		s.settings({
+			defaultEdgeType: 'curve',
+
+			maxNodeSize: 15,
+			minNodeSize: 0.5,
+
+			maxEdgeSize: 0.3,
+			minEdgeSize:0.01,
+
+		});	
+
+
+		// save nodes and edge colors
+		s.graph.nodes().forEach(function(n){
+			n.originalColor = n.color;
+		});
+			
+		s.graph.edges().forEach(function(e){
+			e.originalColor = e.color;
+		});
+
+		s.refresh(); //needed for settings to take place
+
+		//when node is hovered
+		s.bind('overNode',function(e){
+			var fadeColor = 'rgba(230,230,230,0.5)';
+			var nodeId = e.data.node.id,  
+			    toKeep = s.graph.neighbors(nodeId);
+
+			toKeep[nodeId] = e.data.node;
+
+			s.graph.nodes().forEach(function(n){
+				if (toKeep[n.id])
+					n.color = n.originalColor;
+				else
+					n.color = fadeColor;
+			});
+
+			s.graph.edges().forEach(function(e){
+				if(e.source==[nodeId] || e.target==[nodeId])
+					e.color = e.originalColor;
+				else
+					e.color = fadeColor;
+			});
+
+			s.refresh();
+		});
+
+		//when canvas (stage) is hovered
+		s.bind('outNode',function(e){
+			s.graph.nodes().forEach(function(n){
+				n.color = n.originalColor;
+			});
+
+			s.graph.edges().forEach(function(e){
+				e.color = e.originalColor;
+			});
+
+			s.refresh();
+		});
+	}
+
+);
+</script>
