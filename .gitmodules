@@ -1,6 +1,6 @@
 [submodule "caryocar"]
 	path = caryocar
 	url = https://github.com/pedrosiracusa/caryocar.git
-[submodule "lib/sigmajs"]
-	path = lib/sigmajs
+[submodule "docs/lib/sigmajs"]
+	path = docs/lib/sigmajs
 	url = https://github.com/jacomyal/sigma.js
