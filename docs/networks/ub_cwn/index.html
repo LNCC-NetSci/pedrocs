@@ -94,12 +94,12 @@ sigma.parsers.gexf('g.gexf', {
 	},
 	function(s){
 		s.settings({
-			defaultEdgeType: 'curve',
+			defaultEdgeType: 'line',
 
-			maxNodeSize: 10,
+			maxNodeSize: 15,
 			minNodeSize: 0.5,
 
-			maxEdgeSize: 5,
+			maxEdgeSize: 15,
 			minEdgeSize:0.05,
 		});	
 
@@ -110,7 +110,7 @@ sigma.parsers.gexf('g.gexf', {
 		});
 			
 		s.graph.edges().forEach(function(e){
-			e.color = 'rgb(200,200,200)';
+			//e.color = 'rgb(200,200,200)';
 			e.originalColor = e.color;
 		});
 
