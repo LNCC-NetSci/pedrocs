@@ -20,22 +20,63 @@
 
     <!-- Begin page content -->
     <main role="main" class="container">
-      <h1 class="mt-5">Networks</h1>
-      <p class="lead">Interactive networks from my M.Sc. dissertation (using sigma.js)</p>
-      <h4>The University of Brasília Herbarium</h4>
-      <ul>
-        <li><a href="networks/ub_scn" target="_blank">Species-Collector Network</a></li>
-        <li><a href="networks/ub_scn_projCol" target="_blank">Species-Collector Network (Collector Projection)</a></li>
-        <li><a href="networks/ub_scn_projSp" target="_blank">Species-Collector Network (Species Projection)</a></li>
-        <li><a href="networks/ub_cwn" target="_blank">Collector-CoWorking Network</a></li>
-        <li><a href="video/ub_cwn_evo.mp4" target="_blank">Collector-CoWorking Network - Temporal Evolution (animation)</a></li>
-      </ul>
+
+      <!-- MSc. Project -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>New perspectives on analyzing data from biological collections based on social network analytics</h2>
+          <h5>MSc. project</h5>
+          <h6><small>Author: </small><a href="http://pedrosiracusa.com" target="_blank">Pedro C. de Siracusa</a></h6>
+          <h6><small>Supervisor: </small><a href="http://www.lncc.br/~ziviani/" target="_blank">Artur Ziviani</a></h6>
+          <h6><small>Co-supervisor: </small><a href="http://www.lncc.br/~lgadelha/" target="_blank">Luiz M. R. Gadelha Jr.</a></h6>
+          <h4>Summary</h4>
+          <p>Biological collections have been historically regarded as fundamental sources of scientiﬁc information on biodiversity, supporting a wide range of scientiﬁc and management initiatives in the scope of natural resources conservation. 
+          As they are typically composed of punctual records of specimens (most of which derived from non-random and opportunistic sampling), biological collection datasets are commonly associated with a variety of biases, which must be characterized and mitigated before data can be consumed.
+          <br/><br/>
+          In this dissertation, we are particularly motivated by taxonomic and collector biases, which can be understood as the eﬀect of particular recording preferences of key collectors on shaping the overall taxonomic composition of biological collections they contribute to. 
+          In this context, we propose two network models as the ﬁrst steps towards a network-based conceptual framework for understanding the formation of biological collections as a result of the composition of collectors’ interests and activities. 
+          Both models extend the well-established framework of social network analytics, beneﬁting from a whole set of metrics and algorithms for characterizing network topological features.
+          <br/><br/>
+          <b>Species-Collector Networks (SCNs)</b> model the interests of collectors towards particular species, and are structured by linking collectors to each species they have recorded in biological collection datasets. 
+          From complementary perspectives, SCNs allow one to investigate which collectors share common interest for sets of species; and conversely, which species are usually recorded by similar sets of collectors.
+          <br/></br>
+          <b>Collector CoWorking Networks (CWNs)</b> are a special type of collaboration networks, structured from collaboration ties that are formed between collectors who record specimens together in ﬁeld. 
+          Such collaborative ties are created between pairs of collectors whenever they are both included as collectors in the same record.
+          <br/><br/>
+          Building upon the deﬁned network models, we also present a case study in which we use our models to explore the community of collectors and the taxonomic composition of the University of Brasília herbarium. 
+          We describe general topological features of the networks and point out some of the most relevant collectors in the biological collection as well as their taxonomic groups of interest. 
+          We also investigate the collaborative behavior of collectors while recording specimens. 
+          Finally, we discuss future perspectives for incorporating temporal and geographical dimensions to the models. 
+          Moreover, we indicate some possible investigation directions that could possibly beneﬁt from our approach based on social network analytics to model and analyze biological collections.
+          <br/><br/>
+          <span><a href="https://github.com/LNCC-NetSci/pedrocs/raw/master/lncc-dissertation_commitee.pdf">Get the full text</a></span>
+          </p>
+          <h3 class="mt-5">Papers</h3>
+          <p class="lead">Papers and manuscripts written during the project.</p> 
+          <ul>
+            <li><a href="https://www.biorxiv.org/content/early/2018/06/08/341297" target="_blank">On the Social Structure behind Biological Collections (preprint)</a></ul></li>
+
+          <h3 class="mt-5">Networks</h3>
+          <p class="lead">Explore the interactive networks from my M.Sc. dissertation. 
+          The networks are displayed using the <a href="http://sigmajs.org/" target="_blank">sigma.js library</a>.</p>
+          <h5>The University of Brasília Herbarium</h5>
+          <ul>
+            <li><a href="networks/ub_scn" target="_blank">Species-Collector Network</a></li>
+            <li><a href="networks/ub_scn_projCol" target="_blank">Species-Collector Network (Collector Projection)</a></li>
+            <li><a href="networks/ub_scn_projSp" target="_blank">Species-Collector Network (Species Projection)</a></li>
+            <li><a href="networks/ub_cwn" target="_blank">Collector-CoWorking Network</a></li>
+            <li><a href="video/ub_cwn_evo.mp4" target="_blank">Collector-CoWorking Network - Temporal Evolution (animation)</a></li>
+          </ul>
+        </div>
+      </div>
+
+
       <!-- <p>Use <a href="http://getbootstrap.com/docs/4.1/examples/sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p> -->
     </main>
 
     <footer class="footer">
       <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted"><a class="text-muted" href="https://lncc-netsci.github.io"><b>Back to LNCC NetSci page</b></a></span>
       </div>
     </footer>
   
